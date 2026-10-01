@@ -1,107 +1,83 @@
-import { getImageUrl, getVideoUrl } from "@/src/data/media";
+import { getVideoThumbnailUrl } from "@/src/data/media";
 
 export type ProjectAspect = "portrait" | "landscape" | "square";
 
 export type Project = {
   id: number;
   title: string;
-  category: string;
-  year: string;
-  description: string;
   thumbnail: string;
   video: string;
   aspect: ProjectAspect;
 };
 
-export const projects: Project[] = [
+type ProjectVideo = Pick<Project, "title" | "video"> & {
+  thumbnailOffsetSeconds?: number;
+};
+
+const projectVideos: ProjectVideo[] = [
   {
-    id: 1,
-    title: "Brand Story",
-    category: "Commercial",
-    year: "2026",
-    description: "A cinematic brand story edit built to land emotion before the first frame finishes.",
-    thumbnail: getImageUrl("project-01-poster.jpg"),
-    video: getVideoUrl("project-01.mp4"),
-    aspect: "portrait",
+    title: "Project 10",
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790864215/amit/videos/project_10_ym3emm.mp4",
   },
   {
-    id: 2,
-    title: "Fashion Campaign",
-    category: "Editorial",
-    year: "2026",
-    description: "Fast-cut motion, polished pacing and rhythm designed for a luxury fashion drop.",
-    thumbnail: getImageUrl("project-02-poster.jpg"),
-    video: getVideoUrl("project-02.mp4"),
-    aspect: "portrait",
+    title: "BAKAJIKI",
+    thumbnailOffsetSeconds: 1,
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863846/amit/videos/BAKAJIKI_fn6azn.mp4",
   },
   {
-    id: 3,
-    title: "Social Media Reel",
-    category: "Short Form",
-    year: "2025",
-    description: "A conversion-driven reel with sharp hooks, motion accents and punchy transitions.",
-    thumbnail: getImageUrl("project-03-poster.jpg"),
-    video: getVideoUrl("project-03.mp4"),
-    aspect: "portrait",
+    title: "Project 05",
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790768862/amit/videos/project-05_p2dsg4.mp4",
   },
   {
-    id: 4,
-    title: "Product Commercial",
-    category: "Brand Film",
-    year: "2025",
-    description: "A premium product story crafted to feel tactile, elevated and instantly memorable.",
-    thumbnail: getImageUrl("project-04-poster.jpg"),
-    video: getVideoUrl("project-04.mp4"),
-    aspect: "portrait",
+    title: "Project 18",
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863478/amit/videos/project_18_azbxaj.mp4",
   },
   {
-    id: 5,
-    title: "Travel Film",
-    category: "Documentary",
-    year: "2025",
-    description: "A warm, immersive journey weaving movement, atmosphere and place into a cohesive edit.",
-    thumbnail: getImageUrl("project-05-poster.jpg"),
-    video: getVideoUrl("project-05.mp4"),
-    aspect: "portrait",
+    title: "OYEANNA",
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863860/amit/videos/OYEANNA_1_11.06.26_a7crns.mp4",
   },
   {
-    id: 6,
-    title: "Music Visual",
-    category: "Concept Edit",
-    year: "2024",
-    description: "Visual storytelling shaped around sound, rhythm and emotional pacing.",
-    thumbnail: getImageUrl("project-06-poster.jpg"),
-    video: getVideoUrl("project-06.mp4"),
-    aspect: "portrait",
+    title: "Rajkot Property",
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863876/amit/videos/my_rajkot_property_changess_1_v16a3r.mp4",
   },
   {
-    id: 7,
-    title: "YouTube Content",
-    category: "Creator Edit",
-    year: "2024",
-    description: "Engaging, platform-native storytelling with retention-first sequence design.",
-    thumbnail: getImageUrl("project-07-poster.jpg"),
-    video: getVideoUrl("project-07.mp4"),
-    aspect: "portrait",
+    title: "BABY",
+    thumbnailOffsetSeconds: 1,
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863814/amit/videos/BABY_29.06.26_2_dpw8tq.mp4",
   },
   {
-    id: 8,
-    title: "Corporate Film",
-    category: "Business Story",
-    year: "2024",
-    description: "Crisp corporate editing with clarity, trust and premium visual polish.",
-    thumbnail: getImageUrl("project-08-poster.jpg"),
-    video: getVideoUrl("project-08.mp4"),
-    aspect: "portrait",
+    title: "CARZSPA AMG",
+    thumbnailOffsetSeconds: 1,
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863884/amit/videos/CARZSPA_AMG_6_11.06.26_fcyyj1.mp4",
   },
   {
-    id: 9,
-    title: "Cinematic Short",
-    category: "Narrative",
-    year: "2024",
-    description: "A mood-driven mini story balancing atmosphere, texture and cinematic pacing.",
-    thumbnail: getImageUrl("project-09-poster.jpg"),
-    video: getVideoUrl("project-09.mp4"),
-    aspect: "portrait",
+    title: "SOMNATH",
+    thumbnailOffsetSeconds: 1,
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863721/amit/videos/SOMNATH__2_11.06.26_anj9fh.mp4",
+  },
+  {
+    title: "Project 08",
+    thumbnailOffsetSeconds: 1,
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790768921/amit/videos/project-08_ulpj5u.mp4",
+  },
+  {
+    title: "Project 17",
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790863675/amit/videos/project_17_o9zdqg.mp4",
+  },
+  {
+    title: "Project 02",
+    thumbnailOffsetSeconds: 1,
+    video: "https://res.cloudinary.com/djvgxuin8/video/upload/v1790774475/amit/videos/project-02_ntnynt.mp4",
   },
 ];
+
+export const projects: Project[] = projectVideos.map((project, index) => {
+  const { thumbnailOffsetSeconds = 0, ...projectData } = project;
+
+  return {
+    ...projectData,
+    id: index + 1,
+    thumbnail: getVideoThumbnailUrl(project.video, thumbnailOffsetSeconds),
+    aspect: "portrait",
+  };
+});

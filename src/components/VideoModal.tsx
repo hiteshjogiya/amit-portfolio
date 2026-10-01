@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect, useRef } from "react";
 
+import { getOptimizedVideoUrl } from "@/src/data/media";
 import type { Project } from "@/src/data/projects";
 
 type VideoModalProps = {
@@ -19,18 +20,9 @@ export default function VideoModal({ project, onClose }: VideoModalProps) {
       if (event.key === "Escape") onClose();
     };
 
-    const video = videoRef.current;
-    if (video) {
-      video.volume = 1;
-      video.muted = false;
-      video.play().catch(() => {
-        // Browsers may block autoplay in some contexts; the user can still use the video controls.
-      });
-    }
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onClose, project.video]);
+  }, [onClose]);
 
   return (
     <motion.div
@@ -63,13 +55,10 @@ export default function VideoModal({ project, onClose }: VideoModalProps) {
             controls
             autoPlay
             playsInline
-            preload="metadata"
+            preload="auto"
             className="aspect-[9/16] max-h-[82vh] w-full bg-black object-cover"
-            src={project.video}
-            onError={(event) => {
-              const target = event.currentTarget;
-              target.style.display = "none";
-            }}
+            poster={project.thumbnail}
+            src={getOptimizedVideoUrl(project.video)}
           />
         </div>
       </motion.div>

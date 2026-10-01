@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useRef } from "react";
 
+import { getVideoPreviewUrl } from "@/src/data/media";
 import type { Project } from "@/src/data/projects";
 
 type VideoCardProps = {
@@ -42,7 +43,10 @@ export default function VideoCard({ project, onSelect }: VideoCardProps) {
     >
       <button
         type="button"
-        onClick={() => onSelect(project)}
+        onClick={() => {
+          handlePausePreview();
+          onSelect(project);
+        }}
         data-video-card
         className="group relative block w-full aspect-[9/16] overflow-hidden rounded-[28px] border border-white/10 bg-zinc-950 text-left transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/90"
         aria-label={`Open project: ${project.title}`}
@@ -55,11 +59,11 @@ export default function VideoCard({ project, onSelect }: VideoCardProps) {
           <video
             ref={videoRef}
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-            src={project.video}
+            src={getVideoPreviewUrl(project.video)}
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             poster={project.thumbnail}
             onError={(event) => {
               const target = event.currentTarget;

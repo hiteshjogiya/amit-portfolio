@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Play } from "lucide-react";
 
-import { getImageUrl, getVideoUrl } from "@/src/data/media";
+import { projects } from "@/src/data/projects";
 
 export default function FeaturedVideo() {
   const shouldReduceMotion = useReducedMotion();
@@ -44,8 +44,8 @@ export default function FeaturedVideo() {
               autoPlay
               loop
               preload="metadata"
-              poster={getImageUrl("editor-profile.jpg")}
-              src={getVideoUrl("project-03.mp4")}
+              poster={projects[0].thumbnail}
+              src={projects[0].video}
               onError={(event) => {
                 const target = event.currentTarget;
                 target.style.display = "none";
